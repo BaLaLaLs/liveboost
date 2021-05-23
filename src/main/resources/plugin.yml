@@ -1,0 +1,8 @@
+name: LiveBoost
+version: @version@
+main: cn.balalals.fuck.LiveBoost
+commands:
+  liveboost:
+    description: none
+    permission: 'liveboost.*'
+    permission-message: 'not have permission'
