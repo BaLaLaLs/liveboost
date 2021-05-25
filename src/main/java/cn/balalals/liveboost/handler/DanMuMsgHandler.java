@@ -1,4 +1,4 @@
-package handler;
+package cn.balalals.liveboost.handler;
 
 import cn.balalals.liveboost.LiveBoost;
 import cn.balalals.liveboost.bean.DanMuMessage;

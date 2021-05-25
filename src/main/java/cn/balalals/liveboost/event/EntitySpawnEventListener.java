@@ -7,8 +7,6 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 public class EntitySpawnEventListener implements Listener {
     @EventHandler
     public void handlerEvent(EntitySpawnEvent event) {
-        System.out.println("EntitySpawnEventListener：" + event.getEntity().getCustomName());
-        System.out.println("EntitySpawnEventListener: " + event.getEntity().getName());
     }
 
 }

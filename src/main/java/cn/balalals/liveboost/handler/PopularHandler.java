@@ -1,4 +1,4 @@
-package handler;
+package cn.balalals.liveboost.handler;
 
 
 public class PopularHandler implements IMessageHandler<Integer> {

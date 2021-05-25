@@ -2,14 +2,16 @@ package cn.balalals.liveboost.websocket;
 
 import cn.balalals.liveboost.bean.DanMuMessage;
 import cn.balalals.liveboost.bean.EntryRoomMessage;
+import cn.balalals.liveboost.bean.GiftMessage;
+import cn.balalals.liveboost.handler.GiftMsgHandler;
 import cn.balalals.liveboost.util.BilibiliMsgSplit;
 import cn.balalals.liveboost.util.Zlib;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import handler.DanMuMsgHandler;
-import handler.EntryRoomHandler;
-import handler.PopularHandler;
+import cn.balalals.liveboost.handler.DanMuMsgHandler;
+import cn.balalals.liveboost.handler.EntryRoomHandler;
+import cn.balalals.liveboost.handler.PopularHandler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.FullHttpResponse;
@@ -113,12 +115,23 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
                 EntryRoomMessage entryRoomMessage = new EntryRoomMessage();
                 entryRoomMessage.setUname(jsonObject.getJSONObject("data").getString("uname"));
                 new EntryRoomHandler().handler(entryRoomMessage);
+                break;
             case "DANMU_MSG":
                 JSONArray info = jsonObject.getJSONArray("info");
                 DanMuMessage danMuMessage = new DanMuMessage();
                 danMuMessage.setMsg(info.getString(1));
                 danMuMessage.setUname(info.getJSONArray(2).getString(1));
                 new DanMuMsgHandler().handler(danMuMessage);
+                break;
+            case "SEND_GIFT":
+                GiftMessage giftMessage = new GiftMessage();
+                JSONObject data = jsonObject.getJSONObject("data");
+                giftMessage.setAction(data.getString("action"));
+                giftMessage.setGiftId(data.getInteger("giftId"));
+                giftMessage.setGiftName(data.getString("giftName"));
+                giftMessage.setUname(data.getString("uname"));
+                new GiftMsgHandler().handler(giftMessage);
+            case "COMBO_SEND":
             default:
         }
     }
